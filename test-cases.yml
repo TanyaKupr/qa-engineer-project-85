@@ -1,0 +1,332 @@
+---
+- summary: |
+    Проверка регистрации пользователя
+  requirement: |
+    При вводе валидных данных пользователь должен зарегистрироваться на сайте
+  prerequisites: |
+    Открыта страница регистрации Sign up
+  test-data: |
+    Nickname = login 
+    Email = login@email
+    Password = 123456
+    Password Confirmation = 123456
+  steps:
+    - Ввести Nickname
+    - Ввести Email
+    - Ввести Password
+    - Ввести Password Confirmation
+    - Нажать кнопку «Submit»
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+
+- summary: |
+    Проверка входа пользователя с существующими логином и паролем
+  requirement: |
+    При верном вводе логина и пароля пользователь должен войти в систему
+  prerequisites:
+    Открыта страница логина Sign in
+  test-data: |
+    Nickname = login 
+    Password = 123456
+  steps:
+    - Ввести Nickname
+    - Ввести Password
+    - Нажать кнопку «Submit»
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+
+    summary: |
+    Проверка входа пользователя с несуществующими логином и паролем
+  requirement: |
+    При неправильном логине или пароле пользователь должен получить сообщение об ошибке
+  prerequisites:
+    Открыта страница логина Sign in
+  test-data: |
+    Nickname = username 
+    Password = 000000
+  steps:
+    - Ввести Nickname
+    - Ввести Password
+    - Нажать кнопку «Submit»
+  expected-result: |
+    Пользователь должен получить сообщение об ошибке
+    
+- summary: |
+    Проверка  авторизации пользователя с помощью аккаунта на Discord
+  requirement: |
+    При авторизации через Discord пользователь должен войти в систему
+  prerequisites:
+    Открыта страница логина Sign in
+    Пользователь должен иметь аккаунт на Discord
+  test-data: |
+    Username = login 
+    Password = 123456
+  steps:
+    - Нажать на кнопку «Sign in with Discord»
+    - Ввести Username
+    - Ввести Password
+    - Нажать кнопку «Sign in»
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+    
+- summary: |
+    Проверка  авторизации пользователя с помощью аккаунта на GitHub
+  requirement: |
+    При авторизации через GitHub пользователь должен войти в систему
+  prerequisites:
+    Открыта страница логина Sign in
+    Пользователь должен иметь аккаунт на GitHub
+  test-data: |
+    Username = login 
+    Password = 123456
+  steps:
+    - Нажать на кнопку «Sign in with Github»
+    - Ввести Username
+    - Ввести Password
+    - Нажать кнопку «Sign in»
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+    
+- summary: |
+    Проверка регистрации пользователя при вводе кириллицы в Nickname
+  requirement: |
+    При вводе кириллицы в Nickname пользователь должен получить сообщение об ошибке
+  prerequisites:
+    Открыта страница регистрации Sign up
+  test-data: |
+    Nickname = логин 
+    Email = login@email
+    Password = 123456
+    Password Confirmation = 123456
+  steps:
+    - Ввести Nickname
+    - Ввести Email
+    - Ввести Password
+    - Ввести Password Confirmation
+    - Нажать кнопку «Submit»
+  expected-result: |
+    Появляется сообщение об ошибке "Should contain Latin letters only, also can contain numbers and underscores"
+    
+- summary: |
+    Проверка отправки запроса на восстановление пароля
+  requirement: |
+    Пользователь должен иметь возможность отправить запрос на восстановление пароля
+  prerequisites:
+    Открыта страница логина Sign in
+    Пользователь ранее был зарегистрирован на сайте
+  test-data: |
+    Email = login@email
+  steps:
+    - Нажать «Forgot your password?»
+    - Ввести Email
+    - Нажать кнопку «Submit»
+  expected-result: |
+    Появляется сообщение, что пароль отправлен на указанный Email. На почту приходит письмо с ссылкой для восстановления пароля.
+     
+- summary: |
+    Проверка восстановления пароля
+  requirement: |
+    Пользователь должен иметь возможность восстановления пароля
+  prerequisites:
+    Пользователем отправлен запрос на восстановление пароля и получено письмо с соответствующей ссылкой
+  test-data: |
+    no data
+  steps:
+    - Перейти по ссылке в письме
+    - Ввести новый Password
+    - Ввести Password Confirmation
+    - Нажать кнопку «Save»
+  expected-result: |
+    Появляется сообщение «Password changed. You can now sign in with your new password»   
+
+- summary: |
+    Проверка уникальности Nickname при регистрации
+  requirement: |
+    При регистрации Nickname, уже имеющегося на сайте, пользователь должен получить сообщение об ошибке
+  prerequisites:
+    Открыта страница регистрации Sign up
+  test-data: |
+    Nickname = login 
+    Email = username@email
+    Password = 1234567
+    Password Confirmation = 1234567
+  steps:
+    - Ввести Nickname
+    - Ввести Email
+    - Ввести Password
+    - Ввести Password Confirmation
+    - Нажать кнопку «Submit»
+  expected-result: |
+    Появляется сообщение об ошибке "Nickname is already taken"
+    
+- summary: |
+    Проверка создания пробной игры без регистрации (авторизации)
+  requirement: |
+    Пользователь должен иметь возможность создания пробной игры без регистрации (авторизации)
+  prerequisites:
+    no data
+  test-data: |
+    no data
+  steps:
+    - Нажать «TRY SIMPLE BATTLE»
+  expected-result: |
+    Пользователь должен попасть на страницу с игрой
+    
+- summary: |
+    Проверка создания игры после авторизации
+  requirement: |
+    Пользователь должен иметь возможность создания игры после авторизации
+  prerequisites:
+    Пользователь авторизован
+  test-data: |
+    no data
+  steps:
+    - Нажать «CREATE A GAME»
+    - Нажать «Create battle»
+  expected-result: |
+    Пользователь должен попасть на страницу игры
+    
+- summary: |
+    Проверка создания игры с ботом
+  requirement: |
+    Пользователь должен иметь возможность создания игры с ботом
+  prerequisites:
+    Пользователь авторизован
+  test-data: |
+    no data
+  steps:
+    - Нажать «CREATE A GAME»
+    - Нажать «With a bot»
+    - Нажать «Create battle»
+  expected-result: |
+    Пользователь должен попасть на страницу игры с ботом
+    
+- summary: |
+    Проверка выбора уровня игры 
+  requirement: |
+    Пользователь должен иметь возможность выбрать уровень игры
+  prerequisites:
+    Пользователь авторизован
+  test-data: |
+    no data
+  steps:
+    - Нажать «CREATE A GAME»
+    - В поле Level выбрать уровень игры, например, нажать на 3 звезды (medium)
+  expected-result: |
+    В списке Choose task by name or tags отобразились задачи заданного уровня
+    
+- summary: |
+    Проверка создания игры заданной продолжительности
+  requirement: |
+    Пользователь должен иметь возможность установить продолжительность игры
+  prerequisites:
+    Пользователь авторизован
+  test-data: |
+    no data
+  steps:
+    - Нажать «CREATE A GAME»
+    - В поле Time control установить время, например, 27 мин
+    - Нажать «With a bot»
+    - Нажать «Create battle»
+  expected-result: |
+    Отобразилась страница игры с TIMEOUT IN заданной продолжительности
+    
+- summary: |
+    Проверка досрочного окончания игры
+  requirement: |
+    Пользователь должен иметь возможность в любой момент остановить игру
+  prerequisites:
+    Пользователь авторизован
+  test-data: |
+    no data
+  steps:
+    - Нажать «CREATE A GAME»
+    - Нажать «Create battle»
+    - Нажать на красный флажок Give up
+    - Во всплывающем окне нажать Give up
+  expected-result: |
+    Появляется сообщение об окончании игры «If you read this you've lost the game»
+    
+- summary: |
+    Проверка создания игры с другим пользователем
+  requirement: |
+    Пользователь должен иметь возможность создания игры с другим пользователем
+  prerequisites:
+    Пользователь 1 авторизован
+    Зарегистрировать в другом браузере пользователя 2 (Nickname = login2, Email = login2@email, Password = 1234562)
+  test-data: |
+    no data
+  steps:
+    Пользователь 1:
+    - Нажать «CREATE A GAME»
+    - Нажать «Create battle»
+    Пользователь 2:
+    - Нажать «Fight»
+  expected-result: |
+    У обоих пользователей открылась страница игры
+    
+- summary: |
+    Проверка входа пользователя с существующими логином и паролем
+  requirement: |
+    При вводе существующих логина и пароля пользователь должен войти в систему
+  prerequisites:
+    Открыта страница логина
+  test-data: |
+    Nickname = login 
+    Password = 123456
+  steps:
+    - Вводим Nickname
+    - Вводим Password
+    - Нажимаем кнопку «Submit»
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+    
+- summary: |
+    Проверка входа пользователя с существующими логином и паролем
+  requirement: |
+    При вводе существующих логина и пароля пользователь должен войти в систему
+  prerequisites:
+    Открыта страница логина
+  test-data: |
+    Nickname = login 
+    Password = 123456
+  steps:
+    - Вводим Nickname
+    - Вводим Password
+    - Нажимаем кнопку «Submit»
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+    
+- summary: |
+    Проверка входа пользователя с существующими логином и паролем
+  requirement: |
+    При вводе существующих логина и пароля пользователь должен войти в систему
+  prerequisites:
+    Открыта страница логина
+  test-data: |
+    Nickname = login 
+    Password = 123456
+  steps:
+    - Вводим Nickname
+    - Вводим Password
+    - Нажимаем кнопку «Submit»
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+    
+- summary: |
+    Проверка входа пользователя с существующими логином и паролем
+  requirement: |
+    При вводе существующих логина и пароля пользователь должен войти в систему
+  prerequisites:
+    Открыта страница логина
+  test-data: |
+    Nickname = login 
+    Password = 123456
+  steps:
+    - Вводим Nickname
+    - Вводим Password
+    - Нажимаем кнопку «Submit»
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+    
+    
