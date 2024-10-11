@@ -237,11 +237,8 @@
   test-data: |
     no data
   steps:
-    Пользователь 1:
-    - Нажать «CREATE A GAME»
-    - Нажать «Create battle»
-    Пользователь 2:
-    - Нажать «Fight»
+    - Пользователем 1 нажать «CREATE A GAME», нажать «Create battle»
+    - Пользователем 2 нажать «Fight»
   expected-result: |
     У обоих пользователей открылась страница игры
     
@@ -255,14 +252,8 @@
   test-data: |
     no data
   steps:
-    Пользователь 1:
-    - Нажать «CREATE A GAME»
-    - Нажать «With a friend»
-    - Выбрать в поле Choose opponent пользователя 2
-    - Нажать «Create battle»
-    Пользователь 2:
-    - Нажать «Invites»
-    - Нажать «Accept»
+   - Пользователем 1 нажать «CREATE A GAME», «With a friend», выбрать в поле Choose opponent пользователя 2, нажать «Create battle»
+   - Пользователем 2 нажать «Invites», нажать «Accept»
   expected-result: |
     У обоих пользователей открылась страница игры
 
