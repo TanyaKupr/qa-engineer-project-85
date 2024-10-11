@@ -275,7 +275,7 @@
     Авторизовать в другом браузере пользователя 2 (Nickname = login2, Password = 1234562)
   test-data: |
     no data
-steps:
+  steps:
     - Пользователь 1  Нажать «CREATE A GAME». Нажать «With a friend». Выбрать в поле Choose opponent пользователя 2. Нажать «Create battle»
     - Пользователь 2  Нажать «Invites». Нажать «Accept». Ввести в поле кода любые символы, например, «hello»
     - Пользователю 1  Ввести в поле кода любые символы, например, «hello»
