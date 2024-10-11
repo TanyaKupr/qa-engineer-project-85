@@ -90,7 +90,6 @@
 
 - summary: |
     Проверка просмотра краткой информации о другом пользователе
-  requirement: |
   status: pass
 
 - summary: |
